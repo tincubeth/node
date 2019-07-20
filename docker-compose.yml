@@ -8,11 +8,19 @@ services:
     image: slockit/in3-server:latest
     volumes:
     - $PWD/keys:/secure                                     # directory where the private key is stored 
-    ports:
-    - 8500:8500/tcp                                         # open the port 8500 to be accessed by public
+    expose:                                                 # swap `ports` for `expose` since publishing a
+                                                            # Tor service and we do not want to map any ports
+                                                            # to the host machine. The Incubed server will
+                                                            # therefore base inaccessible outside of the
+                                                            # Tor network
+                                                            # Reference: https://randywestergren.com/running-a-hidden-tor-service-with-docker-compose/
+    - 8500/tcp                                              # open the port 8500 to be accessed by public
+    - 9050/tcp                                              # open the socket port 9050 (see file torrc)
     command:
-    - --privateKey=/secure/myKey.json                       # internal path to the key
-    - --privateKeyPassphrase=dummy                          # passphrase to unlock the key
+    # Generated Account
+    # private key: b9bcef71ad544a209ae348af0306ad776e3a0842496e41d2410fcd5996856c11
+    - --privateKey=/secure/keystore.json                           # internal path to the key
+    - --privateKeyPassphrase=Testtesttest                   # passphrase to unlock the key
     - --chain=0x5                                           # chain (Görli)
     - --rpcUrl=http://incubed-parity:8545                   # url of the goerli-client
     - --registry=0x85613723dB1Bc29f332A37EeF10b61F8a4225c7e # url of the incubed-registry 
@@ -20,8 +28,23 @@ services:
     - --autoRegistry-deposit=2                              # deposit to use when registering
 
   incubed-parity:
-    image: slockit/parity-in3:v2.2                          # parity-image with the getProof-function implemented
+    # image: slockit/parity-in3:v2.2                          # parity-image with the getProof-function implemented
+    # image: slockit/parity-in3:latest
+    image: slockit/parity-in3:v2.3
     command:
+    - --chain=0x5                                           # chain (Görli)
     - --auto-update=none                                    # do not automaticly update the client
     - --pruning=archive 
-    - --pruning-memory=30000                                # limit storage
+    - --pruning-memory=30000                             # limit storage
+
+    # TODO - replace with manual Dockerfile that runs v2.5 of Parity Ethereum since that release supports Görli
+
+  # incubed-geth:
+  #   image: ethereum/client-go
+
+  tor:                                                      # References: https://randywestergren.com/running-a-hidden-tor-service-with-docker-compose/
+    build: tor-hidden-service/
+    links:
+      - incubed-server
+      - incubed-parity
+      # - incubed-geth
