@@ -7,7 +7,7 @@ services:
   incubed-server:
     image: slockit/in3-server:latest
     volumes:
-    - $PWD:/secure                                          # directory where the private key is stored
+    - $PWD/keys:/secure                                     # directory where the private key is stored
     expose:                                                 # swap `ports` for `expose` since publishing a
                                                             # Tor service and we do not want to map any ports
                                                             # to the host machine. The Incubed server will
