@@ -20,7 +20,7 @@ See the tincubeth [docs repo](https://github.com/tincubeth/doc)
   ```
 
 * View logs to obtain Onion URL
-  ```
+  ```bash
   docker-compose logs tor
   ```
 
