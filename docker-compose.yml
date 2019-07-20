@@ -7,7 +7,7 @@ services:
   incubed-server:
     image: slockit/in3-server:latest
     volumes:
-    - $PWD/keys:/secure                                     # directory where the private key is stored 
+    - $PWD:/secure                                          # directory where the private key is stored
     expose:                                                 # swap `ports` for `expose` since publishing a
                                                             # Tor service and we do not want to map any ports
                                                             # to the host machine. The Incubed server will
@@ -19,8 +19,8 @@ services:
     command:
     # Generated Account
     # private key: b9bcef71ad544a209ae348af0306ad776e3a0842496e41d2410fcd5996856c11
-    - --privateKey=/secure/keystore.json                           # internal path to the key
-    - --privateKeyPassphrase=Testtesttest                   # passphrase to unlock the key
+    - --privateKey=/secure/keystore.json                    # internal path to the key
+    - --privateKeyPassphrase=p                              # passphrase to unlock the key
     - --chain=0x5                                           # chain (Görli)
     - --rpcUrl=http://incubed-parity:8545                   # url of the goerli-client
     - --registry=0x85613723dB1Bc29f332A37EeF10b61F8a4225c7e # url of the incubed-registry 
@@ -28,9 +28,11 @@ services:
     - --autoRegistry-deposit=2                              # deposit to use when registering
 
   incubed-parity:
+    image: parity/parity:v2.5.0
+    # image: parity/parity:stable                             # https://hub.docker.com/r/parity/parity/tags
     # image: slockit/parity-in3:v2.2                          # parity-image with the getProof-function implemented
     # image: slockit/parity-in3:latest
-    image: slockit/parity-in3:v2.3
+    # image: slockit/parity-in3:v2.3
     command:
     - --chain=0x5                                           # chain (Görli)
     - --auto-update=none                                    # do not automaticly update the client
