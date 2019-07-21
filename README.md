@@ -12,30 +12,30 @@ See the tincubeth [docs repo](https://github.com/tincubeth/doc)
 
 ## Setup <a id="setup"></a>
 
-### Incubed Client with [Tor (Onion Services)](https://2019.www.torproject.org/docs/onion-services.html.en) support
+### Using [Tor (Onion Services)](https://2019.www.torproject.org/docs/onion-services.html.en) with Incubed Client
 
 #### Using Parity-Ethereum
 
 * Build Docker containers
   ```bash
-  docker-compose -f docker-compose-parity.yml up -d
+  docker-compose -f docker-compose-parity-tor.yml up -d
   ```
 
 * Rebuild Docker containers
   ```bash
-  docker-compose -f docker-compose-parity.yml up --build
+  docker-compose -f docker-compose-parity-tor.yml up --build
   ```
 
 #### Using Geth
 
 * Build Docker containers
   ```bash
-  docker-compose -f docker-compose-geth.yml up -d
+  docker-compose -f docker-compose-geth-tor.yml up -d
   ```
 
 * Rebuild Docker containers
   ```bash
-  docker-compose -f docker-compose-geth.yml up --build
+  docker-compose -f docker-compose-geth-tor.yml up --build
   ```
 
 #### Other
