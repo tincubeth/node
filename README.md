@@ -18,19 +18,24 @@ See the tincubeth [docs repo](https://github.com/tincubeth/doc)
 
 * Build Docker containers
   ```bash
-  docker-compose -f docker-compose-geth.yml up -d
+  docker-compose -f docker-compose-parity.yml up -d
   ```
 
 * Rebuild Docker containers
   ```bash
-  docker-compose -f docker-compose-geth.yml up --build
+  docker-compose -f docker-compose-parity.yml up --build
   ```
 
 #### Using Geth
 
 * Build Docker containers
   ```bash
-  docker-compose -f docker-compose-parity.yml up -d
+  docker-compose -f docker-compose-geth.yml up -d
+  ```
+
+* Rebuild Docker containers
+  ```bash
+  docker-compose -f docker-compose-geth.yml up --build
   ```
 
 #### Other
