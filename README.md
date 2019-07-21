@@ -14,19 +14,35 @@ See the tincubeth [docs repo](https://github.com/tincubeth/doc)
 
 ### Incubed Client with [Tor (Onion Services)](https://2019.www.torproject.org/docs/onion-services.html.en) support
 
+#### Using Parity-Ethereum
+
 * Build Docker containers
   ```bash
-  docker-compose up -d
-  ```
-
-* View logs to obtain Onion URL
-  ```bash
-  docker-compose logs tor
+  docker-compose -f docker-compose-geth.yml up -d
   ```
 
 * Rebuild Docker containers
   ```bash
-  docker-compose up --build
+  docker-compose -f docker-compose-geth.yml up --build
+  ```
+
+#### Using Geth
+
+* Build Docker containers
+  ```bash
+  docker-compose -f docker-compose-parity.yml up -d
+  ```
+
+#### Other
+
+* View logs to obtain Onion URL (i.e. HOSTNAME.onion)
+  ```bash
+  docker-compose logs tor
+  ```
+
+* Example Query with an Incubed Client using JSON-RPC via Tor. Replace `HOSTNAME` with the Onion URL
+  ```bash
+  curl --socks5-hostname 127.0.0.1:9050 <HOSTNAME.onion>:8545 -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
   ```
 
 * View Docker containers

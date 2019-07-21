@@ -25,24 +25,16 @@ services:
     - --autoRegistry-url=http://in3.server:8500             # check or register this node for this url
     - --autoRegistry-deposit=2                              # deposit to use when registering
 
-  incubed-parity:
-    image: parity/parity:v2.5.0
-    # image: parity/parity:stable                             # https://hub.docker.com/r/parity/parity/tags
-    # image: slockit/parity-in3:v2.2                          # parity-image with the getProof-function implemented
-    # image: slockit/parity-in3:latest
-    # image: slockit/parity-in3:v2.3
+  # https://hackmd.io/xozUfgl3To2OxlsPfS42Dw?view
+  incubed-geth:
+    image: ethereum/client-go
     command:
-    - --chain=0x5                                           # chain (Görli)
-    - --auto-update=none                                    # do not automaticly update the client
-    - --pruning=archive 
-    - --pruning-memory=30000                             # limit storage
-
-  # incubed-geth:
-  #   image: ethereum/client-go
+    - --goerli
+    - --rpc
+    - --rpcvhosts=* console
 
   tor:                                                      # References: https://randywestergren.com/running-a-hidden-tor-service-with-docker-compose/
-    build: tor-hidden-service/
+    build: tor-hidden-service-geth/
     links:
       - incubed-server
-      - incubed-parity
-      # - incubed-geth
+      - incubed-geth
