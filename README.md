@@ -55,6 +55,32 @@ See the tincubeth [docs repo](https://github.com/tincubeth/doc)
   docker ps
   ```
 
+### Using [I2P](https://geti2p.net) with Incubed Client
+
+#### Using Parity-Ethereum
+
+* Build Docker containers
+  ```bash
+  docker-compose -f docker-compose-parity-i2p.yml up -d
+  ```
+
+* Rebuild Docker containers
+  ```bash
+  docker-compose -f docker-compose-parity-i2p.yml up --build
+  ```
+
+#### Using Geth
+
+* Build Docker containers
+  ```bash
+  docker-compose -f docker-compose-geth-i2p.yml up -d
+  ```
+
+* Rebuild Docker containers
+  ```bash
+  docker-compose -f docker-compose-geth-i2p.yml up --build
+  ```
+
 ## Links <a id="links"></a>
 
 * https://github.com/slockit/in3
